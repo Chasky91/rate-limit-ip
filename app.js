@@ -39,7 +39,7 @@ const  rateLimiter = (req, res, next) => {
     }    
     next()   
 }
-
+app.set('trust proxy', 3)
 app.use(rateLimiter)
 
 app.get('/debug/ip', (req, res) => {
