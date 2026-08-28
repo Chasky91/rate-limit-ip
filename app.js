@@ -42,6 +42,14 @@ const  rateLimiter = (req, res, next) => {
 
 app.use(rateLimiter)
 
+app.get('/debug/ip', (req, res) => {
+  res.json({
+    ip: req.ip,
+    forwardedFor: req.headers['x-forwarded-for'],
+    ips: req.ips,
+  });
+});
+
 app.get('/', (req, res) => {
   res.send('Hello World!')
 })
