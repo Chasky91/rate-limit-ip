@@ -4,13 +4,17 @@ import 'dotenv/config'
 const app = express()
 const PORT = process.env.PORT || 3000
 
-const LIMITE_CONSULTAS = 5
+const LIMITE_CONSULTAS = 4
 const TIEMPO_ESPERA = 60 * 1000 // 1 minuto en milisegundos
 const  registroVisitantes = new Map()
 
 const  rateLimiter = (req, res, next) => {
     const  ip  = req.ip
+    console.log(ip,"  ip  del  visitante")
     const ahora = Date.now()
+
+    console.log(ahora," tiempo  contado  en   milisegundos  desde    1970")
+    
 
     let visitante = registroVisitantes.get(ip)
 
@@ -21,7 +25,7 @@ const  rateLimiter = (req, res, next) => {
         }
         registroVisitantes.set(ip, visitante)
     }
-
+    console.log(visitante)
     visitante.count++
 
     const segundos = Math.ceil((visitante.expiracion - ahora) / 1000) 
